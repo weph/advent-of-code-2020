@@ -1,23 +1,21 @@
 module Main where
 
-toTuple x = (x, x)
+import Data.List
 
-listToTuple x = map toTuple x
+combinations 0 lst = [[]]
+combinations n lst = do
+    (x:xs) <- tails lst
+    rest   <- combinations (n-1) xs
+    return $ x : rest
 
-combine a b = (fst a + fst b, snd a * snd b)
+value x = if sum x == 2020 then product x else 0
 
-combineTwo [] = []
-combineTwo (x:xs) = (map (combine x) xs) ++ combineTwo xs
-
-combineThree [] = []
-combineThree (x:xs) = (map (combine x) (combineTwo xs)) ++ combineThree xs
-
-withSum x y = map snd (filter ((==x).fst) y)
+findValue lst = filter (/=0) (map value lst)
 
 main = do
   input <- getContents
 
   let numbers = map read (lines input) :: [Integer]
 
-  print (withSum 2020 (combineTwo (listToTuple numbers)))
-  print (withSum 2020 (combineThree (listToTuple numbers)))
+  print (findValue (combinations 2 numbers))
+  print (findValue (combinations 3 numbers))
