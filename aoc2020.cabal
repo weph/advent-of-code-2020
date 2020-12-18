@@ -42,6 +42,7 @@ executable aoc2020-exe
       Day03
       Day04
       Day05
+      Day06
       Paths_aoc2020
   hs-source-dirs:
       app

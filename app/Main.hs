@@ -9,6 +9,7 @@ import qualified Day02
 import qualified Day03
 import qualified Day04
 import qualified Day05
+import qualified Day06
 
 solve day input =
   case day of
@@ -17,6 +18,7 @@ solve day input =
     "3" -> Day03.solve input
     "4" -> Day04.solve input
     "5" -> Day05.solve input
+    "6" -> Day06.solve input
     _ -> error $ "Invalid day: " ++ day
 
 usage = do
