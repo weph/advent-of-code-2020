@@ -1,6 +1,8 @@
 module Main where
 
 import System.Environment
+import System.Exit
+import System.IO
 
 import qualified Day01
 import qualified Day02
@@ -11,10 +13,20 @@ solve day input =
     "1" -> Day01.solve input
     "2" -> Day02.solve input
     "3" -> Day03.solve input
-    _ -> error $ "Invalid argument: " ++ day
+    _ -> error $ "Invalid day: " ++ day
+
+usage = do
+  name <- getProgName
+  putStrLn ("Usage: " ++ name ++ " day input")
+  exitWith ExitSuccess
+
+run [] = usage
+run [day] = usage
+run [day, filename] = do
+  handle <- openFile filename ReadMode
+  input <- hGetContents handle
+  solve day input
 
 main = do
-  [arg] <- getArgs
-  input <- getContents
-
-  solve arg (lines input)
+  args <- getArgs
+  run args

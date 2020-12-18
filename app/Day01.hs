@@ -10,10 +10,10 @@ combinations n lst = do
 
 value x = if sum x == 2020 then product x else 0
 
-findValue lst = filter (/=0) (map value lst)
+findValue lst = head (filter (/=0) (map value lst))
 
 solve input = do
-  let numbers = map read input :: [Integer]
+  let numbers = map read (lines input) :: [Integer]
 
-  print (findValue (combinations 2 numbers))
-  print (findValue (combinations 3 numbers))
+  putStrLn ("Part 1: " ++ (show (findValue (combinations 2 numbers))))
+  putStrLn ("Part 2: " ++ (show (findValue (combinations 3 numbers))))

@@ -20,7 +20,9 @@ description:         Please see the README on GitHub at <https://github.com/weph
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 - regex-pcre
+- split
 
 library:
   source-dirs: src

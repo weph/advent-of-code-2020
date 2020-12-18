@@ -2,24 +2,21 @@ module Day02 where
 
 import Text.Regex.PCRE
 
-pattern = "(.+)-(.+) (.): (.+)"
-
-occurences char str = length (filter (==char) str)
-policy1 min max char str = (occurences char str) >= min && (occurences char str) <= max
+policy1 min max char str = cnt >= min && cnt <= max
+  where cnt = length (filter (==char) str)
 
 charAt p str = if length str > p then str !! p else ' '
 policy2 p1 p2 char str = (charAt (p1 - 1) str == char) /= (charAt (p2 - 1) str == char)
 
-applyPolicy1 [min, max, char, str] = policy1 (read min :: Int) (read max :: Int) (head char) str
-applyPolicy2 [min, max, char, str] = policy2 (read min :: Int) (read max :: Int) (head char) str
+isValid policy [min, max, char, str] = policy (read min :: Int) (read max :: Int) (head char) str
 
 validCount xs = length (filter (==True) xs)
 
 parse :: String -> [String]
-parse input = drop 1 (getAllTextSubmatches $ input =~ pattern :: [String])
+parse input = drop 1 (getAllTextSubmatches $ input =~ "(.+)-(.+) (.): (.+)" :: [String])
 
 solve input = do
-  let pwData = map parse input
+  let pwData = map parse (lines input)
 
-  print (validCount (map applyPolicy1 pwData))
-  print (validCount (map applyPolicy2 pwData))
+  putStrLn ("Part 1: " ++ (show (validCount (map (isValid policy1) pwData))))
+  putStrLn ("Part 2: " ++ (show (validCount (map (isValid policy2) pwData))))

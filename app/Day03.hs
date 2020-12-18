@@ -6,6 +6,16 @@ traverseMap :: Int -> Int -> Int -> [String] -> Int
 traverseMap right down px [] = 0
 traverseMap right down px (x:xs) = tree px x + traverseMap right down (px + right) (drop (down - 1) xs)
 
+part1 mapData = traverseMap 3 1 0 mapData
+
+part2 mapData = (traverseMap 1 1 0 mapData) *
+  (traverseMap 3 1 0 mapData) *
+  (traverseMap 5 1 0 mapData) *
+  (traverseMap 7 1 0 mapData) *
+  (traverseMap 1 2 0 mapData)
+
 solve input = do
-  print (traverseMap 3 1 0 input)
-  print ((traverseMap 1 1 0 input) * (traverseMap 3 1 0 input) * (traverseMap 5 1 0 input) * (traverseMap 7 1 0 input) * (traverseMap 1 2 0 input))
+  let mapData = lines input
+
+  putStrLn ("Part 1: " ++ (show (part1 mapData)))
+  putStrLn ("Part 2: " ++ (show (part2 mapData)))

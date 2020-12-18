@@ -29,7 +29,9 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
     , regex-pcre
+    , split
   default-language: Haskell2010
 
 executable aoc2020-exe
@@ -38,6 +40,7 @@ executable aoc2020-exe
       Day01
       Day02
       Day03
+      Day04
       Paths_aoc2020
   hs-source-dirs:
       app
@@ -45,5 +48,7 @@ executable aoc2020-exe
   build-depends:
       aoc2020
     , base >=4.7 && <5
+    , containers
     , regex-pcre
+    , split
   default-language: Haskell2010
