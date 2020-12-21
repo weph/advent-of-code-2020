@@ -2,20 +2,12 @@ module Day03 where
 
 tree x map = if (map !! (x `mod` (length map))) == '#' then 1 else 0
 
-traverseMap :: Int -> Int -> Int -> [String] -> Int
-traverseMap right down px [] = 0
-traverseMap right down px (x:xs) = tree px x + traverseMap right down (px + right) (drop (down - 1) xs)
-
-part1 mapData = traverseMap 3 1 0 mapData
-
-part2 mapData = (traverseMap 1 1 0 mapData) *
-  (traverseMap 3 1 0 mapData) *
-  (traverseMap 5 1 0 mapData) *
-  (traverseMap 7 1 0 mapData) *
-  (traverseMap 1 2 0 mapData)
+traverseMap :: [String] -> Int -> Int -> Int -> Int
+traverseMap [] px right down = 0
+traverseMap (x:xs) px right down = tree px x + traverseMap (drop (down - 1) xs) (px + right) right down
 
 solve input = do
-  let mapData = lines input
+  let traverse = traverseMap (lines input) 0
 
-  putStrLn ("Part 1: " ++ (show (part1 mapData)))
-  putStrLn ("Part 2: " ++ (show (part2 mapData)))
+  putStrLn ("Part 1: " ++ (show (traverse 3 1)))
+  putStrLn ("Part 2: " ++ (show ((traverse 1 1) * (traverse 3 1) * (traverse 5 1) * (traverse 7 1) * (traverse 1 2))))
